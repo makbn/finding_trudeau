@@ -60,6 +60,36 @@
             <artifactId>hk2</artifactId>
             <version>2.5.0-b36</version>
         </dependency>
+
+        <!-- OR as a snazzy new standalone jar with shaded dependencies -->
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.7.00</version>
+            <classifier>standalone</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.Jefferson-Henrique</groupId>
+            <artifactId>GetOldTweets-java</artifactId>
+            <version>v1.2.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20190722</version>
+        </dependency>
+
+        <dependency>
+            <!-- jsoup HTML parser library @ https://jsoup.org/ -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

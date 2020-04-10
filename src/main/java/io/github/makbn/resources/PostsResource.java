@@ -1,10 +1,11 @@
 package io.github.makbn.resources;
 
 import com.codahale.metrics.annotation.Timed;
-import io.github.makbn.api.Post;
-import io.github.makbn.api.PostType;
-import io.github.makbn.api.Response;
+import io.github.makbn.api.common.Response;
+import io.github.makbn.api.post.PostType;
+import io.github.makbn.api.post.Posts;
 import io.github.makbn.core.ApplicationSettings;
+import io.github.makbn.core.exception.ApplicationException;
 import io.github.makbn.core.exception.InvalidRequestException;
 import io.github.makbn.core.service.crawler.CrawlerService;
 import io.github.makbn.core.utils.DateUtils;
@@ -18,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * by Mehdi Akbarian Rastaghi , 20/4/10
@@ -53,10 +53,10 @@ public class PostsResource {
      */
     @GET
     @Timed
-    public Response<Set<Post>> getAllPosts(@QueryParam("type") Optional<String> type,
-                                           @QueryParam("from") Optional<String> from,
-                                           @QueryParam("to") Optional<String> to,
-                                           @QueryParam("limitation") Optional<Integer> limitation) {
+    public Response<Posts> getAllPosts(@QueryParam("type") Optional<String> type,
+                                       @QueryParam("from") Optional<String> from,
+                                       @QueryParam("to") Optional<String> to,
+                                       @QueryParam("limitation") Optional<Integer> limitation) throws ApplicationException {
 
         limitation.ifPresent(PostsResource::checkLimitation);
         type.ifPresent(PostType::checkTypeName);
@@ -64,12 +64,12 @@ public class PostsResource {
         Optional<Date> fromDate = from.map(PostsResource::mapDate);
         Optional<Date> toDate = from.map(PostsResource::mapDate);
 
-        Set<Post> posts = crawlerService.getPosts(fromDate.orElse(DateUtils.getPreviousYear()),
+        Posts posts = crawlerService.getPosts(fromDate.orElse(DateUtils.getPreviousYear()),
                 toDate.orElse(DateUtils.getCurrentDate()),
                 limitation.orElse(ApplicationSettings.getDefaultLimitationNumber()),
                 PostType.valueOf(type.orElse("ALL")));
 
-        return Response.<Set<Post>>builder()
+        return Response.<Posts>builder()
                 .result(posts)
                 .build();
     }

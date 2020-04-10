@@ -1,7 +1,7 @@
 package io.github.makbn.health;
 
 import com.codahale.metrics.health.HealthCheck;
-import io.github.makbn.api.PostType;
+import io.github.makbn.api.post.PostType;
 
 import java.util.Arrays;
 

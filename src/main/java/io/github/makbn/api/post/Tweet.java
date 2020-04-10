@@ -1,34 +1,42 @@
-package io.github.makbn.api;
+package io.github.makbn.api.post;
+
+import lombok.Builder;
+import lombok.Setter;
 
 import java.util.Date;
 
 /**
  * by Mehdi Akbarian Rastaghi , 20/4/10
  **/
+
+@Setter
+@Builder
 public class Tweet implements Post {
-    private long id;
-    private String title;
+    private String id;
     private String content;
     private String link;
+    private Date publishDate;
 
     @Override
-    public long getId() {
-        return 0;
+    public String getId() {
+        return id;
     }
 
     @Override
     public String getTitle() {
-        return null;
+        if (content == null || content.isEmpty())
+            return "";
+        return content.substring(0, Math.min(content.length(), 10));
     }
 
     @Override
     public String getContent() {
-        return null;
+        return content;
     }
 
     @Override
     public String getLink() {
-        return null;
+        return link;
     }
 
     @Override
