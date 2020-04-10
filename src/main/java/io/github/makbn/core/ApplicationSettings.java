@@ -5,8 +5,14 @@ package io.github.makbn.core;
  **/
 public class ApplicationSettings {
     private static int defaultLimitationNumber = 25;
+    private static String defaultUsername = "JustinTrudeau";
 
     public static int getDefaultLimitationNumber() {
         return defaultLimitationNumber;
+    }
+
+
+    public static String getDefaultUsername() {
+        return defaultUsername;
     }
 }

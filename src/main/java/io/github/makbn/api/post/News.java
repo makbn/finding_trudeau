@@ -1,35 +1,48 @@
-package io.github.makbn.api;
+package io.github.makbn.api.post;
+
+import lombok.Builder;
+import lombok.Setter;
 
 import java.util.Date;
 
 /**
  * by Mehdi Akbarian Rastaghi , 20/4/10
  **/
+
+@Builder
+@Setter
 public class News implements Post {
 
+    private String id;
+    private String title;
+    private String content;
+    private String link;
+    private String thumbnail;
+    private Date publishDate;
+
     @Override
-    public long getId() {
-        return 0;
+    public String getId() {
+        return id;
     }
 
     @Override
     public String getTitle() {
-        return null;
+        return title;
     }
 
     @Override
     public String getContent() {
-        return null;
+        return content;
     }
 
     @Override
     public String getLink() {
-        return null;
+        return link;
     }
 
     @Override
     public Date getPublishDate() {
-        return null;
+        return publishDate;
     }
 
     @Override

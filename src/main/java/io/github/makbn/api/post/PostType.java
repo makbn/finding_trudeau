@@ -1,4 +1,4 @@
-package io.github.makbn.api;
+package io.github.makbn.api.post;
 
 /**
  * by Mehdi Akbarian Rastaghi , 20/4/10
@@ -10,7 +10,7 @@ import io.github.makbn.core.exception.InvalidRequestException;
  * type of post shows if its from which provider
  */
 public enum PostType {
-    TWITTER("https://twitter/"), CNN("https://cnn.com"), ALL("*");
+    TWITTER("https://twitter.com"), CNN("https://search.api.cnn.io/content"), ALL("*");
 
 
     private String host;

@@ -1,4 +1,4 @@
-package io.github.makbn.api;
+package io.github.makbn.api.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import java.util.Date;
  **/
 public interface Post {
     @JsonProperty
-    long getId();
+    String getId();
 
     @JsonProperty
     String getTitle();

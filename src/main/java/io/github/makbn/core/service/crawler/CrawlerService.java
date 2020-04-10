@@ -1,11 +1,13 @@
 package io.github.makbn.core.service.crawler;
 
-import io.github.makbn.api.Post;
-import io.github.makbn.api.PostType;
+import io.github.makbn.api.post.PostType;
+import io.github.makbn.api.post.Posts;
 import org.jvnet.hk2.annotations.Service;
 
 import javax.inject.Named;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * by Mehdi Akbarian Rastaghi , 20/4/10
@@ -22,18 +24,19 @@ public class CrawlerService {
         crawlersMap.put(PostType.TWITTER, new TwitterCrawler());
     }
 
-    public Set<Post> getPosts(Date from, Date to, Integer limitation, PostType filter) {
+    public Posts getPosts(Date from, Date to, Integer limitation, PostType filter) {
+        Posts posts = Posts.builder().build();
 
         if (Objects.isNull(filter) || filter == PostType.ALL) {
-            Set<Post> posts = new HashSet<>();
-            crawlersMap.values()
-                    .stream()
-                    .forEach(provider -> posts.addAll(provider.getPosts(from, to, limitation)));
 
-            return posts;
+            crawlersMap.values()
+                    .forEach(provider -> posts.getPosts()
+                            .put(provider.getPostType(), provider.getPosts(from, to, limitation)));
         } else {
             Crawler crawler = crawlersMap.get(filter);
-            return crawler.getPosts(from, to, limitation);
+            posts.getPosts().put(filter, crawler.getPosts(from, to, limitation));
         }
+
+        return posts;
     }
 }
