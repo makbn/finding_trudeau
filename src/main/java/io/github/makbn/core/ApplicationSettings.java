@@ -5,6 +5,9 @@ package io.github.makbn.core;
  **/
 public class ApplicationSettings {
     private static int defaultLimitationNumber = 25;
+    private static int defaultFetchTimerDelay = 10000;
+    private static int defaultFetchTimerInterval = 120000;
+    private static int defaultBodyMaxLength = 1500;
     private static String defaultUsername = "JustinTrudeau";
 
     public static int getDefaultLimitationNumber() {
@@ -14,5 +17,17 @@ public class ApplicationSettings {
 
     public static String getDefaultUsername() {
         return defaultUsername;
+    }
+
+    public static long getFetchTimerDelay() {
+        return defaultFetchTimerDelay;
+    }
+
+    public static long getFetchTimerInterval() {
+        return defaultFetchTimerInterval;
+    }
+
+    public static int getBodyMaxLength() {
+        return defaultBodyMaxLength;
     }
 }

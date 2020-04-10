@@ -3,6 +3,7 @@ package io.github.makbn;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 import io.github.makbn.core.ApplicationBinder;
+import io.github.makbn.core.ApplicationProxy;
 import io.github.makbn.health.ApplicationHealthCheck;
 import io.github.makbn.resources.PostsResource;
 
@@ -34,7 +35,7 @@ public class FindingTrudeauApplication extends Application<FindingTrudeauConfigu
                     final Environment environment) {
 
         environment.jersey().register(new ApplicationBinder());
-
+        environment.jersey().register(new ApplicationProxy(configuration));
         environment.healthChecks()
                 .register("provider-check", new ApplicationHealthCheck());
         environment.jersey()

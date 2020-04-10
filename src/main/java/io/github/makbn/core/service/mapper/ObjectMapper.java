@@ -1,6 +1,7 @@
 package io.github.makbn.core.service.mapper;
 
 import io.github.makbn.api.post.News;
+import io.github.makbn.core.ApplicationSettings;
 import io.github.makbn.core.model.cnn.CNNObject;
 import io.github.makbn.core.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.text.ParseException;
 
 /**
+ * Pojo and Objects Mapping helper
  * by Mehdi Akbarian Rastaghi , 20/4/10
  **/
 @Slf4j
@@ -22,7 +24,8 @@ public class ObjectMapper {
     public static News map(CNNObject.Result result) {
         try {
             return News.builder()
-                    .content(result.getBody())
+                    .content(result.getBody().substring(0,
+                            Math.min(ApplicationSettings.getBodyMaxLength(), result.getBody().length())) + "...")
                     .link(result.getUrl())
                     .thumbnail(result.getThumbnail())
                     .title(result.getHeadline())

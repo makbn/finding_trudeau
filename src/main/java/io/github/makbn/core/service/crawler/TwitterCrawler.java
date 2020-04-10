@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * Retrieving date from {{@link PostType#TWITTER}}
  * by Mehdi Akbarian Rastaghi , 20/4/10
  **/
 public class TwitterCrawler implements Crawler<Tweet> {
