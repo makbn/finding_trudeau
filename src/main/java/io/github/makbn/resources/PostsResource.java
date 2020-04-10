@@ -27,12 +27,8 @@ import java.util.Set;
 @Path("/post")
 @Produces(MediaType.APPLICATION_JSON)
 public class PostsResource {
-    private CrawlerService crawlerService;
-
     @Inject
-    public PostsResource(CrawlerService crawlerService) {
-        this.crawlerService = crawlerService;
-    }
+    private CrawlerService crawlerService;
 
     private static void checkLimitation(Integer limitation) {
         if (limitation < 1 || limitation > 100)
@@ -68,10 +64,13 @@ public class PostsResource {
         Optional<Date> fromDate = from.map(PostsResource::mapDate);
         Optional<Date> toDate = from.map(PostsResource::mapDate);
 
-        crawlerService.getPosts(fromDate.orElse(DateUtils.getPreviousYear()),
+        Set<Post> posts = crawlerService.getPosts(fromDate.orElse(DateUtils.getPreviousYear()),
                 toDate.orElse(DateUtils.getCurrentDate()),
                 limitation.orElse(ApplicationSettings.getDefaultLimitationNumber()),
-                PostType.valueOf(type.get()));
-        return null;
+                PostType.valueOf(type.orElse("ALL")));
+
+        return Response.<Set<Post>>builder()
+                .result(posts)
+                .build();
     }
 }

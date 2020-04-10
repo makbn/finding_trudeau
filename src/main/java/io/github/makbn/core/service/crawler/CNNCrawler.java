@@ -3,6 +3,7 @@ package io.github.makbn.core.service.crawler;
 import io.github.makbn.api.News;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -12,6 +13,6 @@ public class CNNCrawler implements Crawler<News> {
 
     @Override
     public Set<News> getPosts(Date from, Date to, Integer limitation) {
-        return null;
+        return new HashSet<>();
     }
 }

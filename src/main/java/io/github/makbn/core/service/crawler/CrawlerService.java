@@ -24,16 +24,16 @@ public class CrawlerService {
 
     public Set<Post> getPosts(Date from, Date to, Integer limitation, PostType filter) {
 
-        if (Objects.nonNull(filter)) {
-            Crawler crawler = crawlersMap.get(filter);
-            return crawler.getPosts(from, to, limitation);
-        } else {
+        if (Objects.isNull(filter) || filter == PostType.ALL) {
             Set<Post> posts = new HashSet<>();
             crawlersMap.values()
                     .stream()
                     .forEach(provider -> posts.addAll(provider.getPosts(from, to, limitation)));
 
             return posts;
+        } else {
+            Crawler crawler = crawlersMap.get(filter);
+            return crawler.getPosts(from, to, limitation);
         }
     }
 }

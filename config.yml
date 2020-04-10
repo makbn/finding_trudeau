@@ -2,5 +2,3 @@ logging:
   level: INFO
   loggers:
     io.github.makbn: DEBUG
-
-proxy:

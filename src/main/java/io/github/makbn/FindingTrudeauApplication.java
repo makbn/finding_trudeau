@@ -2,6 +2,7 @@ package io.github.makbn;
 
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
+import io.github.makbn.core.ApplicationBinder;
 import io.github.makbn.health.ApplicationHealthCheck;
 import io.github.makbn.resources.PostsResource;
 
@@ -13,7 +14,7 @@ public class FindingTrudeauApplication extends Application<FindingTrudeauConfigu
 
     public static void main(final String[] args) throws Exception {
         appContext = new FindingTrudeauApplication();
-        appContext.run(args);
+        appContext.run("server", "config.yml");
     }
 
     /**
@@ -32,10 +33,12 @@ public class FindingTrudeauApplication extends Application<FindingTrudeauConfigu
     public void run(final FindingTrudeauConfiguration configuration,
                     final Environment environment) {
 
+        environment.jersey().register(new ApplicationBinder());
+
         environment.healthChecks()
                 .register("provider-check", new ApplicationHealthCheck());
         environment.jersey()
-                .register(new PostsResource());
+                .register(PostsResource.class);
     }
 
 }

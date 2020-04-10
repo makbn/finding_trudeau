@@ -1,5 +1,6 @@
 package io.github.makbn.api;
 
+import io.github.makbn.core.utils.DateUtils;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,5 +16,6 @@ public class Response<T> {
     private boolean error;
     private String message;
     private T result;
-    private Date time;
+    @Builder.Default
+    private Date time = DateUtils.getCurrentDate();
 }

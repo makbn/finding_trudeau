@@ -10,7 +10,7 @@ import io.github.makbn.core.exception.InvalidRequestException;
  * type of post shows if its from which provider
  */
 public enum PostType {
-    TWITTER("https://twitter/"), CNN("https://cnn.com");
+    TWITTER("https://twitter/"), CNN("https://cnn.com"), ALL("*");
 
 
     private String host;
