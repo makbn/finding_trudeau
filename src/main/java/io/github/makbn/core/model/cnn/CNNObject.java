@@ -7,11 +7,16 @@ import lombok.Data;
 import java.util.Set;
 
 /**
+ * This class map data from {{@link io.github.makbn.api.post.PostType#CNN}}
+ * to the {{@link io.github.makbn.api.post.News}} objects for api
  * by Mehdi Akbarian Rastaghi , 20/4/10
  **/
 
 @Builder
 @Data
+/**
+ *
+ */
 public class CNNObject {
 
     private Set<Result> result;

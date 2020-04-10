@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * This utils is used for converting different form of date from different providers
  * by Mehdi Akbarian Rastaghi , 20/4/10
  **/
 public class DateUtils {
@@ -29,6 +30,7 @@ public class DateUtils {
         try {
             return cnnDateFormat.parse(date);
         } catch (ParseException e) {
+            /*some of articles have different date format*/
             return cnnDateFormatSec.parse(date);
         }
     }

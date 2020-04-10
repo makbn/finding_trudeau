@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Retrieving data from {{@link PostType#CNN}} provider
  * by Mehdi Akbarian Rastaghi , 20/4/10
  **/
 
@@ -27,6 +28,13 @@ public class CNNCrawler implements Crawler<News> {
         return news;
     }
 
+    /**
+     * @param keywords   searching criteria, an array of string for querying in the articles
+     * @param from       since date
+     * @param to         until date
+     * @param limitation max number of returned news
+     * @return list of news that are retrieved from CNN search service
+     */
     private Set<News> crawlForKeywords(String[] keywords, Date from, Date to, Integer limitation) {
 
         int size = 10;
@@ -46,7 +54,10 @@ public class CNNCrawler implements Crawler<News> {
                 if (response.isSuccess()) {
                     response.getBody().getResult().stream()
                             .filter(article -> validateArticle(article, keywords, from, to))
-                            .forEach(article -> news.add(ObjectMapper.map(article)));
+                            .forEach(article -> {
+                                if (news.size() <= limitation)
+                                    news.add(ObjectMapper.map(article));
+                            });
                 }
             }
 
@@ -57,6 +68,14 @@ public class CNNCrawler implements Crawler<News> {
         return news;
     }
 
+    /**
+     * check if the article is valid for returning as a result
+     * @param article from cnn search service
+     * @param keywords searching criteria
+     * @param from since date
+     * @param to until date
+     * @return is a valid choice or not
+     */
     private boolean validateArticle(CNNObject.Result article, String[] keywords, Date from, Date to) {
         boolean findKeyword = false;
         for (String kw : keywords) {
