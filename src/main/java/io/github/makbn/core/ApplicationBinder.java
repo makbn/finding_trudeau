@@ -15,5 +15,6 @@ public class ApplicationBinder extends AbstractBinder {
     protected void configure() {
         log.debug("ApplicationBinder configuration started!");
         bind(CrawlerService.class).to(CrawlerService.class).in(Singleton.class);
+        bind(ApplicationProxy.class).to(ApplicationProxy.class).in(Singleton.class);
     }
 }
