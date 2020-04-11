@@ -22,7 +22,8 @@ public class FindingTrudeauApplication extends Application<FindingTrudeauConfigu
 
     public static void main(final String[] args) throws Exception {
         appContext = new FindingTrudeauApplication();
-        appContext.run("server", "config.yml");
+        if (args == null || args.length == 0)
+            appContext.run("server", "config.yml");
     }
 
     /**
