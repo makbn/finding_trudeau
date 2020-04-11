@@ -5,7 +5,7 @@ Finding Trudeau (FT) is a simple application for crawling `CNN` and `Twitter` lo
 Plus, you can generate wordcloud from most important topics and keywords from Mr. Trudeau's tweets!
 
 
-[![example output](https://github.com/makbn/finding_trudeau/raw/master/wordcloud.png)](https://twitter.com/JustinTrudeau)
+[![example output](https://github.com/makbn/finding_trudeau/raw/master/wcexample.png)](https://twitter.com/JustinTrudeau)
 
  
 A Running instance of this application is accessible from [findingtrudea.sakku.cloud](https://findingtrudea.sakku.cloud) or:
