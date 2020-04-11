@@ -4,13 +4,13 @@
 ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/makbn/finding_trudeau)
 
 Finding Trudeau (FT) is a simple application for crawling `CNN` and `Twitter` looking for any news and tweets about *Justin Trudeau*. 
-Plus, you can generate **word cloud`** from the most important topics and keywords from Mr. Trudeau's tweets!
+Plus, you can generate **`word cloud`** from the most important topics and keywords from Mr. Trudeau's tweets!
 
 
 [![example wordcloud output](https://github.com/makbn/finding_trudeau/raw/master/wcexample.png)](https://twitter.com/JustinTrudeau)
 
  
-A Running instance of this application is accessible from [findingtrudea.sakku.cloud](https://findingtrudea.sakku.cloud) or:
+A Running instance of this application is accessible from [findingtrudea.sakku.cloud](https://findingtrudea.sakku.cloud/page/index.html) or you can read more:
 
  * [Endpoints](#endpoints)
  * [Build from source code](#how-to-build-the-application)
@@ -90,13 +90,13 @@ curl -X GET \
 * Docker Image `latest` tag is built from `master` branch with every change on this branch.
 
 
-##
+## Components
 
 FT contains multiple functional components:
 
- * Web-Service: this layer is implemented on the top of `Dropwizard` and `Jersy`. The application entry point is `io.github.makbn.FindingTruedeauApplication`. services are placed inside `core` package as Dropwizard standard arch type. In order to use injection (HK2) you need to change the `ApplicationBinder` class.
- * Crawler: crawlers are implemented from the `Crawler` interface in order to add extendability to the system. if you want to add another provider you need to add a `PostType` and implement a new crawler from the `Crawle` interface. 
- * scheduled-jobs: as the metrics of application show, the response time of CNN search is more than 30Sec in some cases and also validating each news is for high load takes some time. So, in order to cut this time a **`scheduled job`** runs each 2 minutes to fetch and cache data.
+ * `Web-Service`: this layer is implemented on the top of `Dropwizard` and `Jersy`. The application entry point is `io.github.makbn.FindingTruedeauApplication`. services are placed inside `core` package as Dropwizard standard arch type. In order to use injection (HK2) you need to change the `ApplicationBinder` class.
+ * `Crawler`: crawlers are implemented from the `Crawler` interface in order to add extendability to the system. if you want to add another provider you need to add a `PostType` and implement a new crawler from the `Crawle` interface. 
+ * `scheduled-jobs`: as the metrics of application show, the response time of CNN search is more than 30Sec in some cases and also validating each news is for high load takes some time. So, in order to cut this time a **`scheduled job`** runs each 2 minutes to fetch and cache data.
 
 
 ## Technologies
