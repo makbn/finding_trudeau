@@ -1,8 +1,9 @@
-FROM java:openjdk-8-jdk-alpine
+FROM zenika/alpine-maven
 
 WORKDIR /app
-ADD https://github.com/makbn/finding_trudeau/releases/download/v1.0-SNAPSHOT/findingtrudeau-1.0-SNAPSHOT.jar  findingtrudeau.jar
-COPY config.yml  config.yml
+ADD ./* ./
+
+RUN mvn clean package
 
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","findingtrudeau.jar", "server", "config.yml"]
+ENTRYPOINT ["java","-jar","target/findingtrudeau-1.0-SNAPSHOT.jar", "server", "config.yml"]
