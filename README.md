@@ -7,6 +7,7 @@ Finding Trudeau is a simple application for crawling `CNN` and `Twitter` looking
  * [Build from source code](#how-to-build-the-application)
  * [Components](#components)
  * [Technologies](#technologies)
+ * [License](#license)
    
    
 ## Endpoints
@@ -46,3 +47,9 @@ curl -X GET \
 
 * In order to develop this project you need to install `lombok` plugin on your editor.
 * Docker Image `latest` tag is built from `master` branch with every change on this branch.
+
+## License
+
+**GNU General Public License v3.0**
+
+> Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
