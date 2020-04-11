@@ -24,6 +24,8 @@ public class FindingTrudeauApplication extends Application<FindingTrudeauConfigu
         appContext = new FindingTrudeauApplication();
         if (args == null || args.length == 0)
             appContext.run("server", "config.yml");
+        else
+            appContext.run(args);
     }
 
     /**
