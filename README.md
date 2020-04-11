@@ -2,10 +2,10 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/90a7cc1b72d34f8cabcb58ee502d4ff5)](https://www.codacy.com/manual/makbn/finding_trudeau?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=makbn/finding_trudeau&amp;utm_campaign=Badge_Grade)
 
 Finding Trudeau (FT) is a simple application for crawling `CNN` and `Twitter` looking for any news and tweets about *Justin Trudeau*. 
-Plus, you can generate wordcloud from most important topics and keywords from Mr. Trudeau's tweets!
+Plus, you can generate **`wordcloud`** from most important topics and keywords from Mr. Trudeau's tweets!
 
 
-[![example output](https://github.com/makbn/finding_trudeau/raw/master/wcexample.png)](https://twitter.com/JustinTrudeau)
+[![example wordcloud output](https://github.com/makbn/finding_trudeau/raw/master/wcexample.png)](https://twitter.com/JustinTrudeau)
 
  
 A Running instance of this application is accessible from [findingtrudea.sakku.cloud](https://findingtrudea.sakku.cloud) or:
@@ -39,8 +39,38 @@ Below table describes available params:
 
 Sample output:
 
+> ```$xslt
+> {
+>   "error": false,
+>    "message": "Ok",
+>    "result": {
+>        "posts": {
+>            "TWITTER": [
+>                {
+>                    "id": "1246990711519612930",
+>                    "content": "Shirley Douglas was a tremendous talent, a tireless advocate, and a fearless activist who never stopped fighting for what she believed in. Her passing is a true loss for our country, and I’m sending my condolences to @RealKiefer and their entire family during this difficult time.",
+>                    "link": "https://twitter.com/JustinTrudeau/status/1246990711519612930",
+>                    "publishDate": 1586573820184,
+>                    "title": "Shirley Douglas was a tremendous ta..."
+>                }
+>            ]
+>        }
+>    },
+>    "time": 1586575527076
+> }
+> ```
+
 ---
-To see your applications health:
+
+To generate `wordcloud` from Mr. Trudeau's tweets:
+
+```sh
+curl -X GET \
+    'http://localhost:8081/post/twitter/wordcloud'
+```
+
+---
+To see the applications health:
 
 ```sh
 curl -X GET \
