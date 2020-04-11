@@ -1,7 +1,7 @@
 FROM java:openjdk-8-jdk-alpine
 
 WORKDIR /app
-COPY target/findingtrudeau-1.0-SNAPSHOT.jar  findingtrudeau.jar
+ADD https://github.com/makbn/finding_trudeau/releases/download/v1.0-SNAPSHOT/findingtrudeau-1.0-SNAPSHOT.jar  findingtrudeau.jar
 COPY config.yml  config.yml
 
 EXPOSE 8080

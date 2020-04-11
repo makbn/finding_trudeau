@@ -40,7 +40,9 @@ curl -X GET \
 ## How to build the application
 
 1. Run `mvn clean install` to build your application
-1. Start application with `java -jar target/findingtrudeau-1.0-SNAPSHOT.jar server config.yml`
-1. To check that your application is running enter url `http://localhost:8080`
+2. Start application with `java -jar target/findingtrudeau-1.0-SNAPSHOT.jar server config.yml`
+    * Docker image of the application is available on hub: `docker run -d makbn/finding_trudeau:latest` 
+3. To check that your application is running enter url `http://localhost:8080`
 
 * In order to develop this project you need to install `lombok` plugin on your editor.
+* Docker Image `latest` tag is built from `master` branch with every change on this branch.
