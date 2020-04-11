@@ -1,6 +1,8 @@
 package io.github.makbn;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.github.makbn.core.ApplicationBinder;
 import io.github.makbn.core.ApplicationProxy;
@@ -33,6 +35,11 @@ public class FindingTrudeauApplication extends Application<FindingTrudeauConfigu
     @Override
     public String getName() {
         return "Finding Trudeau";
+    }
+
+    @Override
+    public void initialize(Bootstrap<FindingTrudeauConfiguration> bootstrap) {
+        bootstrap.addBundle(new AssetsBundle("/assets/", "/page"));
     }
 
     @Override

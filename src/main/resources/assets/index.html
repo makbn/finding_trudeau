@@ -1,0 +1,183 @@
+<html>
+<head>
+    <title>Finding Trudeau: CNN and Twitter</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <style>
+        /* Center the loader */
+        #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3a3a3a;
+            width: 100px;
+            height: 100px;
+            -webkit-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Add animation to "page content" */
+        .animate-bottom {
+            position: relative;
+            -webkit-animation-name: animatebottom;
+            -webkit-animation-duration: 1s;
+            animation-name: animatebottom;
+            animation-duration: 1s
+        }
+
+        @-webkit-keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0px;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+
+        #myDiv {
+            display: none;
+            text-align: center;
+        }
+    </style>
+    <link
+            crossorigin="anonymous"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            rel="stylesheet"
+    />
+</head>
+
+<body>
+
+<div id="loader"></div>
+<div class="container animate-bottom" id="posts-container" style="display:none;"></div>
+
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = location.origin + "/post";
+
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var posts = JSON.parse(this.responseText);
+            fillList(posts);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function fillList(posts) {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("posts-container").style.display = "block";
+        var i;
+        document.getElementById("posts-container").innerHTML += `<br />
+        <div class="row">
+        <div class="col">
+          <h3>Tweets!</h3>
+        </div>
+        </div>
+        <br />
+        <hr />`;
+        for (i = 0; i < posts.result.posts.TWITTER.length; i++) {
+            var newRow =
+                `<div class="row">
+              <div class="col">
+                <h2>` +
+                posts.result.posts.TWITTER[i].title +
+                `</h2>
+                <a  href="` +
+                posts.result.posts.TWITTER[i].link +
+                `" target="_blank"><h6>Read Replies On Twitter!</h6></a>
+                <p>` +
+                posts.result.posts.TWITTER[i].content +
+                `</p>
+              </div> 
+            </dv>`;
+
+            document.getElementById("posts-container").innerHTML += newRow;
+        }
+
+        document.getElementById("posts-container").innerHTML += `<br />
+        <div class="row">
+        <div class="col">
+          <h3>CNN News!</h3>
+        </div>
+        </div>
+        <br />
+        <hr />`;
+
+        for (i = 0; i < posts.result.posts.CNN.length; i++) {
+            var newRow =
+                `<div class="row">
+            <div class="col"> 
+                <a  href="` +
+                posts.result.posts.CNN[i].link +
+                `" target="_blank" ><h2>` +
+                posts.result.posts.CNN[i].title +
+                `</h2></a>
+                <h6>` +
+                new Date(posts.result.posts.CNN[i].publishDate).toDateString() +
+                ` ` +
+                new Date(
+                    posts.result.posts.CNN[i].publishDate
+                ).toLocaleTimeString() +
+                `</h6>
+                <p>` +
+                posts.result.posts.CNN[i].content +
+                `</p>
+              </div>
+            </div>`;
+
+            document.getElementById("posts-container").innerHTML += newRow;
+        }
+
+        var footer = `<br />
+                      <hr />
+                      <br />
+                      <div>
+                        <h4>Developed by: Mehdi Akbarian Rastaghi</h4>
+                        <a href="https://github.com/makbn/finding_trudeau">@makbn/finding_trudeau</a>
+                      </div>
+                      <br />`;
+
+        document.getElementById("posts-container").innerHTML += footer;
+    }
+</script>
+</body>
+</html>
