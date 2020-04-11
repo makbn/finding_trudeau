@@ -6,8 +6,10 @@ import io.github.makbn.api.post.PostType;
 import io.github.makbn.api.post.Posts;
 import io.github.makbn.core.ApplicationSettings;
 import io.github.makbn.core.exception.ApplicationException;
+import io.github.makbn.core.exception.InternalServerException;
 import io.github.makbn.core.exception.InvalidRequestException;
 import io.github.makbn.core.service.crawler.CrawlerService;
+import io.github.makbn.core.service.wordcloud.WordCloudService;
 import io.github.makbn.core.utils.DateUtils;
 
 import javax.inject.Inject;
@@ -16,6 +18,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Optional;
@@ -29,6 +34,9 @@ import java.util.Optional;
 public class PostsResource {
     @Inject
     private CrawlerService crawlerService;
+
+    @Inject
+    private WordCloudService wordCloudService;
 
     private static void checkLimitation(Integer limitation) {
         if (limitation < 1 || limitation > 100)
@@ -73,4 +81,30 @@ public class PostsResource {
                 .result(posts)
                 .build();
     }
+
+    /**
+     * @param limitation maximum number of tweets that we tend to generate wordcloud
+     * @return wordcloud image file for {{@link ApplicationSettings#getDefaultUsername()}} twitter profile
+     */
+    @GET
+    @Path("/twitter/wordcloud")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public javax.ws.rs.core.Response downloadWordCloud(@QueryParam("limitation") Optional<Integer> limitation) {
+        File wc;
+        try {
+            wc = wordCloudService.generateTWC(crawlerService.getPosts(DateUtils.getPreviousYear(),
+                    DateUtils.getCurrentDate(),
+                    limitation.orElse(ApplicationSettings.getDefaultLimitationNumber()),
+                    PostType.TWITTER).getPosts().get(PostType.TWITTER));
+        } catch (IOException e) {
+            throw InternalServerException.builder()
+                    .message(e.getMessage())
+                    .build();
+        }
+
+        ResponseBuilder builder = javax.ws.rs.core.Response.ok(wc);
+        builder.header("Content-Disposition", "attachment; filename=" + wc.getName());
+        return builder.build();
+    }
+
 }
