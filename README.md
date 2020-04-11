@@ -22,11 +22,11 @@ A Running instance of this application is accessible from [findingtrudea.sakku.c
 ## Endpoints
 ### Fetching Posts
 
-Fetching Posts from supported providers, `CNN` and `Twitter`:
+Fetching Posts from supported providers, `CNN` and `Twitter`: [Test Api](https://findingtrudeau.sakku.cloud/post)
 
 ```sh
 curl -X GET \
-  'http://localhost:8080/post?limitation=30&type=CNN' \
+  'https://localhost:8080/post?limitation=30&type=CNN' \
   -H 'cache-control: no-cache'
 ```
 
@@ -64,7 +64,7 @@ Sample output:
 
 ---
 
-To generate `word cloud` from Mr. Trudeau's tweets:
+To generate `word cloud` from Mr. Trudeau's tweets: [Test Api](https://findingtrudeau.sakku.cloud/post/twitter/wordcloud)
 
 ```sh
 curl -X GET \
@@ -72,7 +72,7 @@ curl -X GET \
 ```
 
 ---
-To see the application's health:
+To see the application's health: [Test Api](http://findingtrudeau.sakku.cloud:8081)
 
 ```sh
 curl -X GET \
@@ -82,9 +82,13 @@ curl -X GET \
 ## How to build the application
 
 1. Run `mvn clean install` to build your application
+
 2. Start the application with `java -jar target/findingtrudeau-1.0-SNAPSHOT.jar server config.yml`
+   
     * Docker image of the application is available on the hub: `docker run -d makbn/finding_trudeau:latest` 
+
 3. To check that your application is running enter URL `http://localhost:8080`
+
 
 * In order to develop this project you need to install `lombok` plugin on your editor.
 * Docker Image `latest` tag is built from `master` branch with every change on this branch.
@@ -94,7 +98,7 @@ curl -X GET \
 
 FT contains multiple functional components:
 
- * `Web-Service`: this layer is implemented on the top of `Dropwizard` and `Jersy`. The application entry point is `io.github.makbn.FindingTruedeauApplication`. services are placed inside `core` package as Dropwizard standard arch type. In order to use injection (HK2) you need to change the `ApplicationBinder` class.
+ * `Web-Service`: this layer is implemented on the top of `Dropwizard` and `Jersy`. The application entry point is `io.github.makbn.FindingTruedeauApplication`. services are placed inside `core` package as Dropwizard standard arch type. In order to use dependency injection (HK2) you need to change the `ApplicationBinder` class.
  * `Crawler`: crawlers are implemented from the `Crawler` interface in order to add extendability to the system. if you want to add another provider you need to add a `PostType` and implement a new crawler from the `Crawle` interface. 
  * `scheduled-jobs`: as the metrics of application show, the response time of CNN search is more than 30Sec in some cases and also validating each news is for high load takes some time. So, in order to cut this time a **`scheduled job`** runs each 2 minutes to fetch and cache data.
 
@@ -110,7 +114,7 @@ FT contains multiple functional components:
  * [stopwords-iso](https://github.com/stopwords-iso) for En stopwords
  * [Kenny Cason](https://github.com/kennycason) for [kumo](https://github.com/kennycason/kumo)
 
-
+ Developed & Deployed by: Mehdi Akbarian Rastaghi
 ## License
 
 **GNU General Public License v3.0**
