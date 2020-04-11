@@ -1,40 +1,36 @@
 package io.github.makbn.core.service.wordcloud;
 
-import io.github.makbn.FindingTrudeauApplication;
 import io.github.makbn.api.post.Post;
 import org.jvnet.hk2.annotations.Service;
 
 import javax.inject.Named;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
 
 @Service
 @Named("wordcloud-wordprocessor")
 public class WordProcessor {
 
-    static Collection<String> loadStopWords() throws FileNotFoundException {
-        HashSet<String> stopwords = new HashSet<>();
-        String swDir = FindingTrudeauApplication.class.getClassLoader().getResource("stopwords").getFile();
-        File dir = new File(swDir);
-        BufferedReader reader;
-        for (File swf : dir.listFiles()) {
-            reader = new BufferedReader(new FileReader(swf));
-            stopwords.addAll(reader.lines()
-                    .map(s -> s.trim())
-                    .collect(Collectors.toList()));
-        }
+    private static List<String> stopwords;
 
+    static {
+        stopwords = Arrays.asList("i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his",
+                "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which",
+                "who", "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having",
+                "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with",
+                "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out",
+                "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both",
+                "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t",
+                "can", "will", "just", "don", "should");
+    }
+
+    static Collection<String> loadStopWords() {
         return stopwords;
     }
 
-    public String generateText(Set<Post> tweets) {
+    String generateText(Set<Post> tweets) {
         StringBuilder result = new StringBuilder();
         for (Post tweet : tweets) {
             if (!tweet.getContent().startsWith("https://twitter.com"))

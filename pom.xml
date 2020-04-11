@@ -109,6 +109,7 @@
     </dependencies>
 
     <build>
+
         <plugins>
             <plugin>
                 <artifactId>maven-shade-plugin</artifactId>
