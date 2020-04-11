@@ -73,6 +73,10 @@ public class CrawlerService extends TimerTask {
         return posts;
     }
 
+    /**
+     * run every {{@link ApplicationSettings#getFetchTimerInterval()}} mills
+     * to fetch latest tweets and news from providers
+     */
     @Override
     public void run() {
         posts = fetchPosts(DateUtils.getPreviousYear(), DateUtils.getCurrentDate(),

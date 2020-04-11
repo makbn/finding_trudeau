@@ -26,7 +26,7 @@ public class Tweet implements Post {
     public String getTitle() {
         if (content == null || content.isEmpty())
             return "";
-        return content.substring(0, Math.min(content.length(), 10));
+        return content.substring(0, Math.min(content.length(), 35)) + "...";
     }
 
     @Override

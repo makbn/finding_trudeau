@@ -3,10 +3,7 @@ package io.github.makbn.api.post;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * by Mehdi Akbarian Rastaghi , 20/4/10
@@ -21,7 +18,7 @@ public class Posts {
     public boolean hasRequestedPosts(PostType filter, int limitation) {
         if (filter == PostType.ALL) {
             return posts.values().stream().anyMatch(Objects::nonNull)
-                    && (posts.values().stream().mapToInt(Set::size).sum() >= limitation);
+                    && (posts.values().stream().allMatch(s -> s.size() >= limitation));
         } else {
             return posts.containsKey(filter) && posts.get(filter).size() >= limitation;
         }
@@ -37,15 +34,29 @@ public class Posts {
      */
     public Posts applyFilter(PostType filter, Integer limitation) {
         Posts requestedPost = Posts.builder().build();
-        HashSet<Post> posts = new HashSet<>();
 
-        for (Post post : this.posts.get(filter)) {
+        if (filter == PostType.ALL) {
+            for (Map.Entry<PostType, Set<Post>> entry : this.posts.entrySet()) {
+                HashSet<Post> posts = populate(limitation, entry.getValue());
+                requestedPost.getPosts().put(entry.getKey(), posts);
+            }
+        } else {
+            Set<Post> cachedPosts = this.posts.get(filter);
+            HashSet<Post> posts = populate(limitation, cachedPosts);
+            requestedPost.getPosts().put(filter, posts);
+        }
+        return requestedPost;
+    }
+
+    private HashSet<Post> populate(Integer limitation, Set<Post> cachedPosts) {
+        HashSet<Post> posts = new HashSet<>();
+        for (Post post : cachedPosts) {
             if (posts.size() < limitation)
                 posts.add(post);
             else
                 break;
         }
-        requestedPost.getPosts().put(filter, posts);
-        return requestedPost;
+
+        return posts;
     }
 }
