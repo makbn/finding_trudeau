@@ -99,7 +99,9 @@ curl -X GET \
 FT contains multiple functional components:
 
  * `Web-Service`: this layer is implemented on the top of `Dropwizard` and `Jersy`. The application entry point is `io.github.makbn.FindingTruedeauApplication`. services are placed inside `core` package as Dropwizard standard arch type. In order to use dependency injection (HK2) you need to change the `ApplicationBinder` class.
- * `Crawler`: crawlers are implemented from the `Crawler` interface in order to add extendability to the system. if you want to add another provider you need to add a `PostType` and implement a new crawler from the `Crawle` interface. 
+ * `Crawler`: crawlers are implemented from the `Crawler` interface in order to add extendability to the system. if you want to add another provider you need to add a `PostType` and implement a new crawler from the `Crawle` interface. This project uses CNN search api and for Twitter it use twitter public search API as twitter Access token is not provided by twitter support team:
+ > We’re working through developer applications at a reduced capacity. This could result in a longer than usual (Due to COVID-19, application review times might take longer than usual) review time. As always, we appreciate your patience and interest in Twitter’s Developer Platform.
+ 
  * `scheduled-jobs`: as the metrics of application show, the response time of CNN search is more than 30Sec in some cases and also validating each news is for high load takes some time. So, in order to cut this time a **`scheduled job`** runs each 2 minutes to fetch and cache data.
 
 
