@@ -10,7 +10,7 @@ Plus, you can generate **`word cloud`** from the most important topics and keywo
 [![example wordcloud output](https://github.com/makbn/finding_trudeau/raw/master/wcexample.png)](https://twitter.com/JustinTrudeau)
 
  
-A Running instance of this application is accessible from [findingtrudea.sakku.cloud](https://findingtrudea.sakku.cloud/page/index.html) or you can read more:
+A Running instance of this application is accessible from [https://findingtrudea.sakku.cloud/page/index.html](https://findingtrudea.sakku.cloud/page/index.html) or you can read more:
 
  * [Endpoints](#endpoints)
  * [Build from source code](#how-to-build-the-application)
